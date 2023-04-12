@@ -119,6 +119,7 @@ app.post('/add', (req, res) => {
 
 ```js
 // 잘 쓰여진 API 공통 규칙을 찾아보자
+// 누가봐도 URL을 보고 어떤 의미인지 알아볼 수 있을 것이다
 1. www.example.com/products/66342
 2. instagram.com/explore/tags/kpop
 3. facebook.com/natgeo/photos/
