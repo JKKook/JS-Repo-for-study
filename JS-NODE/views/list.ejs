@@ -4,48 +4,44 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>LIst</title>
     </head>
     <body>
-        <h4>서버에서 가져온 이메일과 패스워드</h4>
-        <ul>
-            <% for(let i = 0; i < posts.length; i++){ %>
-            <li class="list-group-item">
-                <p>글 번호 : <%= posts[i]._id %></p>
-                <h4>이메일 : <%= posts[i].이메일 %></h4>
-                <h4>패스워드 : <%= posts[i].패스워드 %></h4>
-                <button class="delete" data-id="<%= posts[i]._id %>">
+        <% for(let i = 0; i < posts.length; i++) { %>
+        <div>
+            <ul>
+                <li>
+                    <a href="/detail/<%= posts[i]._id %>">
+                        작성번호 <%= posts[i]._id %>
+                    </a>
+                </li>
+                <li>작성자 <%= posts[i]._id %></li>
+                <li>내용 <%= posts[i].title %></li>
+                <li>마감일자 <%= posts[i].date %></li>
+                <button data-id="<%= posts[i]._id %>" class="delete-btn">
                     삭제
                 </button>
-            </li>
-            <% } %>
-        </ul>
+            </ul>
+        </div>
+        <% } %>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        $('.delete').click((e) => {
-            const postNumber = e.target.dataset.id;
-            const localThis = $(this); // 지금 누른 것을 의미, *globalThis는 윈도우 의미하는 거 알쥐?
-            console.log('localThis', localThis);
-            console.log(postNumber);
-            // jQuery 문법
+        // Ajax DELETE 서버 요청 보내기
+        $('.delete-btn').click((e) => {
+            // 고유 id값 찾기, data-id 값 추적
+            const id = e.target.dataset.id;
             $.ajax({
                 method: 'DELETE',
-                url: '/delete', // 서버에 새로고침 없이 /delete 경로로 보낼 것임
-                data: { _id: postNumber }, // 요청과 함께 보낼 데이터
+                url: '/delete',
+                data: { _id: id },
             })
                 .done((result) => {
-                    // 삭제 버튼을 누른 li 요소 제거, fadeOut 매서드
-                    localThis.parent('li').fadeOut();
-                    console.log('성공 했어염');
-                    // window.location.reload(true);
+                    // 성공 시, DOM을 이용해 홈페이지를 새로고침 강제로 시키기
+                    // 성공 시, 해당 id 값의 태그 블라인드 시키기 *일종의 눈 속임
                 })
-                // 실패 원인 분석, 파라미터
-                // xhr: XMLHttpRequest 약자, 서버 요청 부분 실패한 것 분석
-                // textStatus: 응답 코드
-                // errorThrown: 에러 메시지
-                .fail((xhr, textStatus, errorThrown) => {
-                    console.log(xhr, textStatus, errorThrown);
+                .fail((err) => {
+                    console.log(err);
                 });
         });
     </script>

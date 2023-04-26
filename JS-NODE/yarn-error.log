@@ -1,0 +1,49 @@
+Arguments: 
+  /usr/local/bin/node /opt/homebrew/Cellar/yarn/1.22.19/libexec/bin/yarn.js add mongoose
+
+PATH: 
+  /Users/whdrnr01/team_project/playbook/google-cloud-sdk/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/whdrnr01/team_project/playbook/google-cloud-sdk/bin:/opt/homebrew/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  19.8.1
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  Error: EACCES: permission denied, mkdir '/Users/whdrnr01/Desktop/projects/JS-Repo/JS-NODE/node_modules/express/node_modules/cookie'
+
+npm manifest: 
+  {
+      "name": "js-node",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+          "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": "",
+      "license": "ISC",
+      "dependencies": {
+          "body-parser": "^1.20.2",
+          "dotenv": "^16.0.3",
+          "ejs": "^3.1.9",
+          "express": "^4.18.2",
+          "express-session": "^1.17.3",
+          "jquery": "^3.6.4",
+          "method-override": "^3.0.0",
+          "mongodb": "^4.1.0",
+          "nodemon": "^2.0.22",
+          "passport": "^0.6.0",
+          "passport-local": "^1.0.0"
+      }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

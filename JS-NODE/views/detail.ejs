@@ -4,15 +4,18 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>상세페이지</title>
     </head>
     <body>
+        <%- include('nav.html') %>
+
         <h4>서버에서 가져온 상세페이지</h4>
         <ul>
-            <li class="list-group-item">
-                <h4>이메일 : <%=data.이메일 %></h4>
-                <h4>패스워드 :<%= data.패스워드%></h4>
-            </li>
+            <li class="list-group-item"><%= posts.title %></li>
+            <li class="list-group-item"><%= posts.date %></li>
+            <button>
+                <a href="/edit/<%= posts._id %>"> 수정하기 </a>
+            </button>
         </ul>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     </body>

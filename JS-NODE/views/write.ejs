@@ -16,45 +16,34 @@
         <title>Hello, world!</title>
     </head>
     <body>
-        <!-- form에 정보를 서버에 전송 (POST) -->
-        <form action="/addition" method="POST">
+        <!-- form에 정보를 서버(requset.body)에 전송 (POST) -->
+        <form class="container mt-4" action="/addition" method="POST">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label"
-                    >Email address</label
+                    >오늘 할 일</label
                 >
+                <!-- input-name의 이름으로 서버에 박힐 것임! -->
                 <input
-                    type="email"
+                    type="text"
                     class="form-control"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     name="title"
                 />
-                <div id="emailHelp" class="form-text">
-                    We'll never share your email with anyone else.
-                </div>
+                <div id="emailHelp" class="form-text">Try anything.</div>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label"
-                    >Password</label
+                    >날짜</label
                 >
-                <!-- input name으로 데이터 분별 -->
                 <input
-                    type="password"
+                    type="date"
                     class="form-control"
                     id="exampleInputPassword1"
                     name="date"
                 />
             </div>
-            <div class="mb-3 form-check">
-                <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                />
-                <label class="form-check-label" for="exampleCheck1"
-                    >Check me out</label
-                >
-            </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
