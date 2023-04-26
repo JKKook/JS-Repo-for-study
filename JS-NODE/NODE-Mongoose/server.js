@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 6001;
 const mongoose = require('mongoose');
+const userSchemas = require('./Models/UserSchema');
 
 require('dotenv').config(); // env파일에서 환경변수 불러오기
 
@@ -31,7 +32,7 @@ app.post('/register', async (req, res) => {
     //회원 가입 시 필요 정보를 client에서 가져오면 데이터베이스에 삽입한다
     //req.body는  : body parser를 통해 body에 담긴 정보를 가져온다
     //인스턴스를 만들어서 mongoDB 메서드, user모델에 저장
-    const user = new User(req.body);
+    const user = new userSchemas(req.body);
 
     try {
         const userStatus = await user.save();
