@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config(); // env파일에서 환경변수 불러오기
 
 const { userSchemas } = require('./models/User');
+const { 로그인했니 } = require('./middlewares/Auth');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -88,6 +89,18 @@ app.post('/login', async (req, res) => {
     } catch (error) {
         console.log(error.message);
     }
+});
+
+// Authentication
+app.get('/api/users/auth', 로그인했니, (req, res) => {
+    res.status(200).json({
+        // middleware 통과 되면 user정보 반환
+        _id: req.user._id,
+        isAdmin: req.user.role === 0 ? false : true,
+        isAuth: true,
+        email: req.user.email,
+        name: req.user.name,
+    });
 });
 
 app.listen(PORT, () => {
