@@ -1,0 +1,12 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.new {
+    position: absolute;
+    top: 5px;
+    color: black;
+    background-color: yellow;
+}
