@@ -2,11 +2,39 @@
 
 ## Atom usage
 
+### syntax
+
+```js
+export const ATOM변수명 = atom({
+    key: 'primaryKey',
+    default: // 형태는 자유롭게!
+});
+```
+
+### practice
+
+```js
+export const CartItemAtom = atom({
+    key: 'CartItemAtom',
+    default: [],
+});
+```
+
+리액트에서 import
+
+```js
+// 기본 적인 import 형태 , useState([])와 동일하다
+const [cartItem, setCartItem] = useRecoilState(CartItemAtom);
+
+// Value 값만 필요할 경우
+const cartItem = useRecoilValue(CartItemAtom);
+```
+
 ## Selector usage
 
 -   Tip : Recoiljs Snippets Extension 이용 시, 자동 완성 기능
 
-### default usage
+### syntax
 
 ```js
 const Selector = selector({
@@ -42,4 +70,11 @@ export const TotalPriceSelector = selector({
         return CartItem.reduce((acc, curr) => acc + curr.price, 0);
     },
 });
+```
+
+리액트에서 import
+
+```js
+// selector도 마찬가지다. selector로직 중 value값만 필요로 할 시, userRecoilValue만 호출한다
+const TotalQuantity = useRecoilValue(TotalQuantitySelector);
 ```
