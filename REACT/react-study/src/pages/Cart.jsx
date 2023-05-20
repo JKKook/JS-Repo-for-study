@@ -18,7 +18,7 @@ export default function Cart() {
                         <CartItem data={item} key={item.id} />
                     ))
                 ) : (
-                    <NoItems>장바구니가 비었습니다</NoItems>
+                    <NoItems>카트에 상품이 존재하지 않습니다</NoItems>
                 )}
             </ItemWrapper>
 

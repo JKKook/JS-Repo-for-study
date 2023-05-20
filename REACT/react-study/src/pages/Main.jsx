@@ -7,6 +7,7 @@ export default function Main() {
     return (
         <ListWrapper>
             {dummyData.map((data) => {
+                console.log('dummys', dummyData);
                 return (
                     <li key={data.id}>
                         <ProductCard data={data} />

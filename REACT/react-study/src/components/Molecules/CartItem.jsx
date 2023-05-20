@@ -23,7 +23,7 @@ export default function CartItem({ data }) {
                 </ColumnWrapper>
             </div>
             <RightWrapper>
-                <Title>{`${price.toLocalString()}원`}</Title>
+                <Title>{price}원</Title>
                 <Button onClick={removeCartItem}>삭제</Button>
             </RightWrapper>
         </Wrapper>
