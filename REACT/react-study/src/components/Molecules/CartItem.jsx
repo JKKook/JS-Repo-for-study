@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { CartItemAtom } from '../../recoil/cart-item';
 
 export default function CartItem({ data }) {
     // 전역 관리를 해보아요
-    const setCartItem = useRecoilState(CartItemAtom);
+    // useSetRecoilState state없이 setState만 불러와서 사용
+    const setCartItem = useSetRecoilState(CartItemAtom);
 
     const { id, title, description, price, img } = data;
 
+    // 아이템 삭제를 구현해보자
     const removeCartItem = () => {
         setCartItem((prev) => prev.filter((item) => item.id !== id));
     };
@@ -23,7 +25,7 @@ export default function CartItem({ data }) {
                 </ColumnWrapper>
             </div>
             <RightWrapper>
-                <Title>{price}원</Title>
+                <Title>{`${price.toLocaleString()}원`}</Title>
                 <Button onClick={removeCartItem}>삭제</Button>
             </RightWrapper>
         </Wrapper>

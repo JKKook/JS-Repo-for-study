@@ -10,7 +10,10 @@ import {
 
 export default function Cart() {
     // 전역 상태 관리를 시도해보자
-    const cartItem = useRecoilState(CartItemAtom);
+    // const [cartItem, setCartItem] = useRecoilState(CartItemAtom);
+    // 만약 Value값만 불러오고 싶다면 useRecoilValue를 사용하자
+    const cartItem = useRecoilValue(CartItemAtom);
+
     console.log('CartItem :', cartItem);
 
     // 파생데이터인 셀렉터를 이용해야해요 (총 개수 구하기)
@@ -35,11 +38,11 @@ export default function Cart() {
 
             <TotalPriceWrapper>
                 <ColumnWrapper>
-                    <span>총 개수 {TotalQuantity}</span>
+                    <span>총 개수: {TotalQuantity}</span>
                     <Heading></Heading>
                 </ColumnWrapper>
                 <ColumnWrapper>
-                    <span>총 가격 {TotalPricce}</span>
+                    <span>총 가격: {`${TotalPricce.toLocaleString()}원`}</span>
                     <Heading></Heading>
                 </ColumnWrapper>
             </TotalPriceWrapper>

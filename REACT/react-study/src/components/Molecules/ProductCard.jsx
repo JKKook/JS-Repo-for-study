@@ -33,9 +33,9 @@ export default function ProductCard({ data }) {
                 width={276}
                 height={276}
             />
-            <Price>{price}원</Price>
             <Haeding>{title}</Haeding>
             <MaxLine1>{description}</MaxLine1>
+            <Price>{`${price.toLocaleString()}원`}</Price>
             <Button onClick={handleItemIntoCart} disabled={isAlreadyInCart}>
                 {isAlreadyInCart
                     ? '이미 추가된 상품입니다'
@@ -46,9 +46,11 @@ export default function ProductCard({ data }) {
 }
 
 const Price = styled.span`
+    margin-top: 1rem;
     font-size: 20px;
-    color: var(--font-black);
+    color: var(--font-pink);
     font-weight: var(--bold);
+    text-align: center;
 `;
 const Wrapper = styled.div`
     padding: 16px;
@@ -65,6 +67,7 @@ const MaxLine1 = styled.p`
     white-space: nowrap;
 `;
 const Button = styled.button`
+    margin-top: 1rem;
     padding: 8px;
     color: #fff;
     background-color: var(--main);
