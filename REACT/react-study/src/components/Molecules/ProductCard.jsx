@@ -12,10 +12,10 @@ export default function ProductCard({ data }) {
                 width={276}
                 height={276}
             />
-            <Price>{price}</Price>
+            <Price>{price.toLocaleString()}원</Price>
             <Haeding>{title}</Haeding>
             <MaxLine1>{description}</MaxLine1>
-            <Button></Button>
+            <Button>장바구니</Button>
         </Wrapper>
     );
 }
@@ -47,6 +47,7 @@ const Button = styled.button`
         background-color: var(--line-gray);
         color: var(--font-gray);
     }
+    border: none;
 `;
 export const Haeding = styled.span`
     font-size: 18px;
