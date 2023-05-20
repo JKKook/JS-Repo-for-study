@@ -1,16 +1,30 @@
 import React from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import CartItem from '../components/Molecules/CartItem';
+import { CartItemAtom } from '../recoil/cart-item';
 
 export default function Cart() {
+    // 전역 상태 관리를 시도해보자
+    const [cartItem, setCartItem] = useRecoilState(CartItemAtom);
+
     return (
         <>
             <Heading>장바구니</Heading>
 
-            <ItemWrapper></ItemWrapper>
+            <ItemWrapper>
+                {cartItem.length ? (
+                    cartItem.map((item) => (
+                        <CartItem data={item} key={item.id} />
+                    ))
+                ) : (
+                    <NoItems>장바구니가 비었습니다</NoItems>
+                )}
+            </ItemWrapper>
 
             <TotalPriceWrapper>
                 <ColumnWrapper>
-                    <span>총 갯수</span>
+                    <span>총 개수</span>
                     <Heading></Heading>
                 </ColumnWrapper>
                 <ColumnWrapper>

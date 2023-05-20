@@ -47,7 +47,6 @@ const Button = styled.button`
         background-color: var(--line-gray);
         color: var(--font-gray);
     }
-    border: none;
 `;
 export const Haeding = styled.span`
     font-size: 18px;
