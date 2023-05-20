@@ -1,4 +1,5 @@
-# Recoil State-managment
+# Recoil State-management
+![리코일 상태관리](https://github.com/JKKook/JS-Repo-for-study/assets/104504666/b4715b5f-e3b4-4990-9674-f51c92cd6fef)
 
 ## Atom usage
 
