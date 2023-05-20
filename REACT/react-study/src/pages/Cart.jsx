@@ -1,12 +1,23 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import CartItem from '../components/Molecules/CartItem';
-import { CartItemAtom } from '../recoil/cart-item';
+import {
+    CartItemAtom,
+    TotalPriceSelector,
+    TotalQuantitySelector,
+} from '../recoil/cart-item';
 
 export default function Cart() {
     // 전역 상태 관리를 시도해보자
-    const [cartItem, setCartItem] = useRecoilState(CartItemAtom);
+    const cartItem = useRecoilState(CartItemAtom);
+    console.log('CartItem :', cartItem);
+
+    // 파생데이터인 셀렉터를 이용해야해요 (총 개수 구하기)
+    const TotalQuantity = useRecoilValue(TotalQuantitySelector);
+
+    // 파생데이터인 셀렉터를 이용해야해요 (총 가격 구하기)
+    const TotalPricce = useRecoilValue(TotalPriceSelector);
 
     return (
         <>
@@ -24,11 +35,11 @@ export default function Cart() {
 
             <TotalPriceWrapper>
                 <ColumnWrapper>
-                    <span>총 개수</span>
+                    <span>총 개수 {TotalQuantity}</span>
                     <Heading></Heading>
                 </ColumnWrapper>
                 <ColumnWrapper>
-                    <span>총 가격</span>
+                    <span>총 가격 {TotalPricce}</span>
                     <Heading></Heading>
                 </ColumnWrapper>
             </TotalPriceWrapper>
