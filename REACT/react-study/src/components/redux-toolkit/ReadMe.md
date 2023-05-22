@@ -19,6 +19,9 @@
 
 예시를 통해서 동작 원리를 알아보자
 
+<br>
+<br>
+
 ### Root
 
 기본 세팅 값은 리덕스툴킷 라이브러리에 따른다.
@@ -47,6 +50,9 @@ export default App;
 // 리덕스 툴킷은 store안에 slice들을 나눠서 저장한다
 // 과거 리덕스는 store에 모든 정보들이 다 담겨있었음
 ```
+
+<br>
+<br>
 
 ### store
 
@@ -91,6 +97,9 @@ const store = configureStore({
 
 export default store;
 ```
+
+<br>
+<br>
 
 ### slice.js
 
@@ -156,6 +165,9 @@ console.log('initialState :', counterSlice.initialState); // undefined
 // actions export 시키기
 export const { add, substract } = counterSlice.actions;
 ```
+
+<br>
+<br>
 
 ### Counter 컴포넌트
 
