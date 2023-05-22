@@ -19,7 +19,7 @@
 
 예시를 통해서 동작 원리를 알아보자
 
-#### Root
+### Root
 
 기본 세팅 값은 리덕스툴킷 라이브러리에 따른다.
 Context API 처럼 전달할 데이터를 "store"에 생성한 뒤(configureStore),
@@ -48,7 +48,7 @@ export default App;
 // 과거 리덕스는 store에 모든 정보들이 다 담겨있었음
 ```
 
-#### store
+### store
 
 -   공유할 데이터를 생성하는 곳이다
 -   데이터 생성은 configure methods를 통해 이뤄지고
@@ -92,11 +92,11 @@ const store = configureStore({
 export default store;
 ```
 
-#### slice.js
+### slice.js
 
 -   슬라이스를 생성하는 곳이다
 -   슬라이스 생성은 createSlice methods를 통해 이뤄지고
--   createSlicesms 파라미터로 슬라이스명, 초기값, \*리듀서(reducers)들을 갖는다
+-   createSlice 파라미터로 슬라이스명, 초기값, \*리듀서(reducers)들을 갖는다
 -   여기서 reducers란, store에 전달할 action(type, payload)를 생성한다
 
 [syntax]
@@ -157,7 +157,7 @@ console.log('initialState :', counterSlice.initialState); // undefined
 export const { add, substract } = counterSlice.actions;
 ```
 
-#### Counter 컴포넌트
+### Counter 컴포넌트
 
 -   Counter 컴포넌트에서 실제 인터렉션이 되는 구간
 -   dispatch를 통해 action이 존재하면 state를 받아온다
