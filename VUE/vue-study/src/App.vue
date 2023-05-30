@@ -1,5 +1,5 @@
 <template>
-    <div @click="openModal" :class="{ menu: true }">
+    <div :class="{ menu: true }">
         <a
             :class="{ 'menu-tag': true }"
             v-for="(tags, index) in menuTags.tags"
@@ -11,18 +11,25 @@
     <div :class="{ body: true }">
         <ul
             :class="{ 'product-lists': true, 'flex-column': true }"
-            v-for="(product, index) in realStateMentProducts.products"
+            v-for="(product, index) in realStateMentProducts.title"
             :key="index"
         >
             <li :class="{ list: true }">
                 {{ product }}
             </li>
-            <img
-                src="https://img.freepik.com/free-photo/sun-district-blue-business-tower_1112-1041.jpg"
-                alt="부동산매물1"
-            />
+            <!-- 속성을 바인딩할 때는 :를 태그 앞에 넣어줘야한다 -->
+            <img :src="realStateMentProducts.image[index]" alt="부동산매물" />
             <li :class="{ 'list-price': true }">
                 {{ realStateMentProducts.price[index] }}만원
+            </li>
+            <!-- index에 따른 모달창 컨텐츠 반환 -->
+            <li>
+                <button
+                    @click="openModal(index)"
+                    :class="{ 'list-button': true }"
+                >
+                    상세정보
+                </button>
             </li>
             <li>
                 <button
@@ -37,8 +44,8 @@
         <!-- 모달 창  v-if는 조건식-->
         <div v-if="showModal" class="modal">
             <div class="modal-content">
-                <h2>상세페이지</h2>
-                <p>상세페이지 내용...</p>
+                <h2>상세정보</h2>
+                <p>{{ realStateMentProducts.content[showModalContent] }}</p>
                 <button @click="closeModal">닫기</button>
             </div>
         </div>
@@ -47,6 +54,7 @@
 
 <script>
 import { reactive, ref } from 'vue';
+import { dummy } from './components/data/dummy';
 export default {
     name: 'App',
     // setup : Vue.3 버전
@@ -54,9 +62,12 @@ export default {
         // ** data
         // reactive 객체 생성 => return에 선언
         const realStateMentProducts = reactive({
-            products: ['역삼동원룸', '천호동원룸', '서초동원룸'],
-            price: [60, 100, 120],
-            newProduct: '',
+            // products: ['역삼동원룸', '천호동원룸', '서초동원룸'],
+            id: dummy.map((data) => data.id),
+            title: dummy.map((data) => data.title),
+            price: dummy.map((data) => data.price),
+            image: dummy.map((data) => data.image),
+            content: dummy.map((data) => data.content),
         });
 
         const menuTags = reactive({
@@ -68,6 +79,8 @@ export default {
 
         // modal
         const showModal = ref(false);
+        // modalContent
+        const showModalContent = ref(null); // 선택된 상품의 인덱스 저장
 
         // ** methods
         // 필요한 메서드 동작이 있다면 동일하게 로직 작성 후, return 문에서 선언
@@ -76,19 +89,11 @@ export default {
             fakeProduct.value[index]++;
         };
 
-        // const addProduct = () => {
-        //     if (realStateMentProducts.newProduct) {
-        //         realStateMentProducts.products.push(
-        //             realStateMentProducts.newProduct,
-        //         );
-        //         realStateMentProducts.price.push(0); // 새로운 상품의 가격을 추가해야 함
-        //         realStateMentProducts.newProduct = '';
-        //     }
-        // };
-
         // modal interaction
-        const openModal = () => {
+        const openModal = (index) => {
             showModal.value = true;
+            showModalContent.value = index; // index를 부여
+            // console.log('모달창콘텐트', showModalContent.value);
         };
         const closeModal = () => {
             showModal.value = false;
@@ -100,10 +105,10 @@ export default {
             menuTags,
             fakeProduct,
             showModal,
+            showModalContent,
             increaseNumber,
             openModal,
             closeModal,
-            // addProduct,
         };
     },
 };
