@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ menu: true }">
+    <div @click="openModal" :class="{ menu: true }">
         <a
             :class="{ 'menu-tag': true }"
             v-for="(tags, index) in menuTags.tags"
@@ -34,6 +34,14 @@
                 <span>신고 수 : {{ fakeProduct[index] }}</span>
             </li>
         </ul>
+        <!-- 모달 창  v-if는 조건식-->
+        <div v-if="showModal" class="modal">
+            <div class="modal-content">
+                <h2>상세페이지</h2>
+                <p>상세페이지 내용...</p>
+                <button @click="closeModal">닫기</button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -43,6 +51,7 @@ export default {
     name: 'App',
     // setup : Vue.3 버전
     setup() {
+        // ** data
         // reactive 객체 생성 => return에 선언
         const realStateMentProducts = reactive({
             products: ['역삼동원룸', '천호동원룸', '서초동원룸'],
@@ -57,21 +66,32 @@ export default {
         // products에 해당하는 값만을 선택하고 싶어서 빈 배열을 인덱스 수 만큼 늘렸다
         const fakeProduct = ref([0, 0, 0]);
 
-        // 필요한 메서드 동작이 있다면 동일하게 로직 작성 후, return 문에서 선언
+        // modal
+        const showModal = ref(false);
 
+        // ** methods
+        // 필요한 메서드 동작이 있다면 동일하게 로직 작성 후, return 문에서 선언
         const increaseNumber = (index) => {
             alert('신고접수가 성공적으로 완료되었습니다');
             fakeProduct.value[index]++;
         };
 
-        const addProduct = () => {
-            if (realStateMentProducts.newProduct) {
-                realStateMentProducts.products.push(
-                    realStateMentProducts.newProduct,
-                );
-                realStateMentProducts.price.push(0); // 새로운 상품의 가격을 추가해야 함
-                realStateMentProducts.newProduct = '';
-            }
+        // const addProduct = () => {
+        //     if (realStateMentProducts.newProduct) {
+        //         realStateMentProducts.products.push(
+        //             realStateMentProducts.newProduct,
+        //         );
+        //         realStateMentProducts.price.push(0); // 새로운 상품의 가격을 추가해야 함
+        //         realStateMentProducts.newProduct = '';
+        //     }
+        // };
+
+        // modal interaction
+        const openModal = () => {
+            showModal.value = true;
+        };
+        const closeModal = () => {
+            showModal.value = false;
         };
 
         // 선언된 순간 바인딩 가능
@@ -79,8 +99,11 @@ export default {
             realStateMentProducts,
             menuTags,
             fakeProduct,
+            showModal,
             increaseNumber,
-            addProduct,
+            openModal,
+            closeModal,
+            // addProduct,
         };
     },
 };
@@ -151,5 +174,26 @@ export default {
 .flex-column {
     display: flex;
     flex-direction: column;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal-content {
+    width: 400px;
+    max-width: 90%;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 4px;
 }
 </style>
