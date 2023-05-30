@@ -8,29 +8,22 @@
             {{ tags }}
         </a>
     </div>
-    <div :class="{ body: true }">
+    <div :class="{ container: true }">
         <ul
             :class="{ 'product-lists': true, 'flex-column': true }"
-            v-for="(product, index) in realStateMentProducts.title"
-            :key="index"
+            v-for="(product, index) in realStateMentProducts"
+            :key="product.id"
         >
             <li :class="{ list: true }">
-                {{ product }}
+                {{ product.title }}
             </li>
             <!-- 속성을 바인딩할 때는 :를 태그 앞에 넣어줘야한다 -->
-            <img :src="realStateMentProducts.image[index]" alt="부동산매물" />
-            <li :class="{ 'list-price': true }">
-                {{ realStateMentProducts.price[index] }}만원
-            </li>
+            <img :src="product.image" alt="부동산매물" />
+            <li :class="{ 'list-price': true }">{{ product.price }}만원</li>
             <!-- index에 따른 모달창 컨텐츠 반환 -->
-            <li>
-                <button
-                    @click="openModal(index)"
-                    :class="{ 'list-button': true }"
-                >
-                    상세정보
-                </button>
-            </li>
+            <button @click="openModal(index)" :class="{ 'list-button': true }">
+                상세정보
+            </button>
             <li>
                 <button
                     :class="{ 'list-button': true }"
@@ -45,7 +38,7 @@
         <div v-if="showModal" class="modal">
             <div class="modal-content">
                 <h2>상세정보</h2>
-                <p>{{ realStateMentProducts.content[showModalContent] }}</p>
+                <p>{{ realStateMentProducts[showModalContent].content }}</p>
                 <button @click="closeModal">닫기</button>
             </div>
         </div>
@@ -61,21 +54,22 @@ export default {
     setup() {
         // ** data
         // reactive 객체 생성 => return에 선언
-        const realStateMentProducts = reactive({
-            // products: ['역삼동원룸', '천호동원룸', '서초동원룸'],
-            id: dummy.map((data) => data.id),
-            title: dummy.map((data) => data.title),
-            price: dummy.map((data) => data.price),
-            image: dummy.map((data) => data.image),
-            content: dummy.map((data) => data.content),
-        });
+        const realStateMentProducts = reactive(
+            dummy.map((data) => ({
+                id: data.id,
+                title: data.title,
+                price: data.price,
+                image: data.image,
+                content: data.content,
+            })),
+        );
 
         const menuTags = reactive({
             tags: ['Home', 'Shop', 'About'],
         });
 
         // products에 해당하는 값만을 선택하고 싶어서 빈 배열을 인덱스 수 만큼 늘렸다
-        const fakeProduct = ref([0, 0, 0]);
+        const fakeProduct = ref(Array(dummy.length).fill(0));
 
         // modal
         const showModal = ref(false);
@@ -124,7 +118,7 @@ export default {
     margin-top: 60px;
 }
 
-.body {
+.container {
     margin: auto;
 }
 
