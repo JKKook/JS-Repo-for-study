@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-import styled, { keyframes, css } from 'styled-components';
+import styled from 'styled-components';
+import BannerAnimation from '../Molecules/BannerAnimation';
 
 export default function Profile() {
     const [isAnimation, setIsAnimation] = useState(false);
@@ -30,13 +31,10 @@ export default function Profile() {
             {/* animation banner */}
             {/* 클릭 시 콘텐츠가 다른 요소를 밀어내도록 */}
 
-            <AnimatedContent isAnimation={isAnimation}>
-                <BannerImage
-                    onClick={() => handleAnimation('open')}
-                    src='https://cdn.pixabay.com/photo/2014/10/31/17/41/dancing-dave-minion-510835_1280.jpg'
-                    alt='banner1'
-                />
-            </AnimatedContent>
+            <BannerAnimation
+                isAnimation={isAnimation}
+                handleAnimation={(action) => handleAnimation(action)}
+            />
 
             {/* modal Animation */}
             {isAnimation && (
@@ -72,17 +70,6 @@ const Avatar = styled.img`
     border-radius: 50%;
 `;
 
-const slideDownAnimation = keyframes`
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-30vh);
-    opacity: 0;
-  }
-`;
-
 // modal
 const Content = styled.span`
     margin-top: 1rem;
@@ -116,26 +103,4 @@ const ModalCloseButton = styled.button`
     right: 1rem;
     font-size: 1.5rem;
     cursor: pointer;
-`;
-
-// Animation Type을 지정해줘야 함, AnimationContentProps가 제네릭이기 때문
-// tsx 코드 안으로 넣어도 됨.
-interface AnimatedContentProps {
-    isAnimation?: boolean;
-}
-
-const AnimatedContent = styled.div<AnimatedContentProps>`
-    position: relative;
-    margin-top: 3rem;
-    ${({ isAnimation }) =>
-        isAnimation &&
-        css`
-            animation: ${slideDownAnimation} 0.5s forwards;
-            pointer-events: none;
-        `}
-`;
-
-const BannerImage = styled.img`
-    cursor: pointer;
-    width: 500px;
 `;
