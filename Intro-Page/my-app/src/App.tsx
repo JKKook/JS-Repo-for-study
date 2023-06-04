@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import Profile from './components/Molecules/Profile';
+import Introduce from './components/Templates/Introduce';
 
 function App() {
     return (
-        <div>
-            <Profile />
-        </div>
+        <>
+            <Introduce />
+        </>
     );
 }
 

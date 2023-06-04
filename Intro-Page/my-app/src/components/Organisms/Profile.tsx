@@ -1,10 +1,61 @@
 import React from 'react';
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect, useRef } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import BannerAnimation from '../Molecules/BannerAnimation';
 
-export default function Profile() {
-    const [isAnimation, setIsAnimation] = useState(false);
+interface FadeInTextProps {
+    isFadeIn?: boolean;
+}
+
+//
+interface useIntersectionObserverProps {
+    // root?: null;
+    // rootMargin?: string;
+    fadeThreshold?: number;
+    // onIntersect: IntersectionObserverCallback;
+}
+
+export default function Profile({
+    fadeThreshold,
+}: useIntersectionObserverProps) {
+    const [isAnimation, setIsAnimation] = useState<boolean>(false);
+
+    // intersectionObserver
+    const textRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5,
+        };
+
+        const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+            entries.forEach((entry) => {
+                console.log('entry감지', entry);
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                    entry.target.classList.add('fade-in');
+                } else {
+                    entry.target.classList.remove('fade-in');
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(handleIntersection, options);
+
+        if (textRef.current) {
+            console.log('textRef 현재값', textRef.current);
+
+            observer.observe(textRef.current);
+        }
+
+        return () => {
+            if (textRef.current) {
+                console.log('textRef 현재값', textRef.current);
+                observer.unobserve(textRef.current);
+            }
+        };
+    }, []);
 
     const handleAnimation = (action: 'open' | 'close') => {
         if (action === 'open') {
@@ -21,12 +72,14 @@ export default function Profile() {
                 src='https://cdn.pixabay.com/photo/2016/03/27/17/42/man-1283235_1280.jpg'
                 alt='teacher_avatar'
             />
-            <span>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Debitis, quos et laboriosam omnis, eum voluptates assumenda
-                voluptate repellendus ipsam, rem officia dolorem aspernatur ad?
-                Minus quibusdam iusto tempore sequi illum.
-            </span>
+            <TextContainer ref={textRef}>
+                <Text>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Debitis, quos et laboriosam omnis, eum voluptates assumenda
+                    voluptate repellendus ipsam, rem officia dolorem aspernatur
+                    ad? Minus quibusdam iusto tempore sequi illum.
+                </Text>
+            </TextContainer>
 
             {/* animation banner */}
             {/* 클릭 시 콘텐츠가 다른 요소를 밀어내도록 */}
@@ -68,6 +121,23 @@ const Avatar = styled.img`
     width: 300px;
     height: 300px;
     border-radius: 50%;
+`;
+
+// fadeIn Animation
+const TextContainer = styled.div`
+    margin-top: 8rem;
+    opacity: 0;
+    transition: opacity 2s;
+
+    &.fade-in {
+        opacity: 1;
+    }
+`;
+
+const Text = styled.h1`
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
 `;
 
 // modal

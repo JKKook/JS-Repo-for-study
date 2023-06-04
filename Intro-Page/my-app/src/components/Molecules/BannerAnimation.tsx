@@ -2,9 +2,8 @@ import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import Banner from '../Atoms/Banner';
 
-// Animation Type을 지정해줘야 함, AnimationContentProps가 제네릭이기 때문
-// tsx 코드 안으로 넣어도 됨.
 interface AnimatedContentProps {
+    image?: string;
     isAnimation?: boolean;
     handleAnimation?: (action: 'open' | 'close') => void;
 }
@@ -16,7 +15,18 @@ export default function BannerAnimation({
         <>
             <AnimationContainer>
                 <AnimatedContent isAnimation={isAnimation}>
-                    <Banner handleAnimation={handleAnimation} />
+                    <Banner
+                        handleAnimation={handleAnimation}
+                        image='https://cdn.pixabay.com/photo/2016/08/23/15/01/board-1614646_1280.jpg'
+                    />
+                    <Banner
+                        handleAnimation={handleAnimation}
+                        image='https://cdn.pixabay.com/photo/2017/01/10/01/32/teach-1968076_1280.jpg'
+                    />
+                    <Banner
+                        handleAnimation={handleAnimation}
+                        image='https://cdn.pixabay.com/photo/2016/07/28/04/31/math-1547018_1280.jpg'
+                    />
                 </AnimatedContent>
             </AnimationContainer>
         </>
@@ -25,7 +35,12 @@ export default function BannerAnimation({
 
 // animation
 
-const AnimationContainer = styled.div``;
+const AnimationContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+`;
 
 // 슬라이드버튼 다운
 const slideDownAnimation = keyframes`

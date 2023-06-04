@@ -1,27 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 interface AnimatedContentProps {
+    image: string;
     handleAnimation?: (action: 'open' | 'close') => void;
 }
-export default function Banner({ handleAnimation }: AnimatedContentProps) {
-    // handleClick 재정의,
+export default function Banner({
+    handleAnimation,
+    image,
+}: AnimatedContentProps) {
+    // handleClick 재정의, imageId에 해당되는 것만 애니메이션 발생
     const handleClick = () => {
         if (handleAnimation) {
             handleAnimation('open');
         }
     };
-    return (
-        <>
-            <BannerImage
-                onClick={handleClick}
-                src='https://cdn.pixabay.com/photo/2014/10/31/17/41/dancing-dave-minion-510835_1280.jpg'
-                alt='banner1'
-            />
-        </>
-    );
+    return <BannerImage onClick={handleClick} src={image} alt='bannerImage' />;
 }
 
 const BannerImage = styled.img`
     cursor: pointer;
-    width: 500px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    margin: 2rem 3rem;
 `;
