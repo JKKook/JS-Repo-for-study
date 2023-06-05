@@ -4,6 +4,7 @@ import Section from '../Organisms/Section';
 import styled from 'styled-components';
 import { useRef, useState } from 'react';
 import { useEffect } from 'react';
+import PageNationDot from '../Molecules/PageNationDot';
 
 const DIVIDER_HEIGHT = 5;
 
@@ -58,7 +59,7 @@ export default function Introduce() {
                         left: 0,
                         behavior: 'smooth',
                     });
-                    setScrollPageIndex(3);
+                    setScrollPageIndex(4);
                     break;
 
                 // ** Scroll-Up
@@ -69,11 +70,21 @@ export default function Introduce() {
                         left: 0,
                         behavior: 'smooth',
                     });
-                    setScrollPageIndex(3);
+                    setScrollPageIndex(1);
                     break;
 
                 case isScrollUp && scrollPosition < 2:
                     console.log('ScrollUp : page 2');
+                    outerDivRefCurrent?.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                    setScrollPageIndex(2);
+                    break;
+
+                case isScrollUp && scrollPosition < 3:
+                    console.log('ScrollUp : page 3');
                     outerDivRefCurrent?.scrollTo({
                         top: 0,
                         left: 0,
@@ -103,7 +114,9 @@ export default function Introduce() {
 
     return (
         <OuterDiv ref={outerDivRef}>
+            <PageNationDot scrollPageIndex={scrollPageIndex} />
             <Profile />
+            <Divider></Divider>
             <Section />
             <Divider></Divider>
             <Section />
