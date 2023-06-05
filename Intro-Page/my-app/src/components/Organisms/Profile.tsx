@@ -1,61 +1,41 @@
-import React from 'react';
 import { useState, useEffect, useRef } from 'react';
-import styled, { keyframes, css } from 'styled-components';
+import styled from 'styled-components';
+import MainIntroduceText from '../Atoms/MainIntroduceText';
 import BannerAnimation from '../Molecules/BannerAnimation';
 
-interface FadeInTextProps {
-    isFadeIn?: boolean;
+// 직접 만들어본 interface 내장 매서드 사용해도 됨
+// entry관련 코드는 따로 뺴주고, entries에 할당해주자
+interface IntersectionObserverEntry {
+    readonly target: Element;
+    readonly isIntersecting: boolean;
+    readonly intersectionRatio: number;
 }
 
-//
+// 리액트 props에 할당할 것
 interface useIntersectionObserverProps {
-    // root?: null;
-    // rootMargin?: string;
+    root?: null;
+    rootMargin?: string;
     fadeThreshold?: number;
-    // onIntersect: IntersectionObserverCallback;
+    onIntersect: (entries: IntersectionObserverEntry[]) => void;
 }
 
-export default function Profile({
-    fadeThreshold,
-}: useIntersectionObserverProps) {
+export default function Profile() {
     const [isAnimation, setIsAnimation] = useState<boolean>(false);
 
-    // intersectionObserver
-    const textRef = useRef<HTMLDivElement>(null);
+    // IntersectionObserverEntry 인터페이스 적용, 직접 구상하고 싶으면 따로 interface처리하면 됨
 
-    useEffect(() => {
-        const options = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5,
-        };
-
-        const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-            entries.forEach((entry) => {
-                console.log('entry감지', entry);
-                if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-                    entry.target.classList.add('fade-in');
-                } else {
-                    entry.target.classList.remove('fade-in');
-                }
-            });
-        };
-
-        const observer = new IntersectionObserver(handleIntersection, options);
-
-        if (textRef.current) {
-            console.log('textRef 현재값', textRef.current);
-
-            observer.observe(textRef.current);
-        }
-
-        return () => {
-            if (textRef.current) {
-                console.log('textRef 현재값', textRef.current);
-                observer.unobserve(textRef.current);
-            }
-        };
-    }, []);
+    // const handleIntersection = (entries : IntersectionObserverEntry) => {
+    //     entries.forEach((entry) => {
+    //         console.log('entry감지', entry);
+    //         if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+    //             console.log('intersect :', entry.isIntersecting); // 콘텐츠가 화면에 보일 땐 true값 형성
+    //             console.log('Ratio :', entry.intersectionRatio); // 콘텐츠가 스크린에 몇 퍼센트 등장했는지 확인 가능
+    //             entry.target.classList.add('fade-in');
+    //         } else {
+    //             entry.target.classList.remove('fade-in');
+    //         }
+    //     });
+    // };
 
     const handleAnimation = (action: 'open' | 'close') => {
         if (action === 'open') {
@@ -68,18 +48,15 @@ export default function Profile({
     return (
         <ProfileContainer>
             <h2>소개글</h2>
-            <Avatar
-                src='https://cdn.pixabay.com/photo/2016/03/27/17/42/man-1283235_1280.jpg'
-                alt='teacher_avatar'
-            />
-            <TextContainer ref={textRef}>
-                <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Debitis, quos et laboriosam omnis, eum voluptates assumenda
-                    voluptate repellendus ipsam, rem officia dolorem aspernatur
-                    ad? Minus quibusdam iusto tempore sequi illum.
-                </Text>
-            </TextContainer>
+            <AvatarContainer>
+                <Avatar
+                    src='https://cdn.pixabay.com/photo/2016/03/27/17/42/man-1283235_1280.jpg'
+                    alt='teacher_avatar'
+                />
+
+                <MainIntroduceText />
+            </AvatarContainer>
+            <MainIntroduceText />
 
             {/* animation banner */}
             {/* 클릭 시 콘텐츠가 다른 요소를 밀어내도록 */}
@@ -114,30 +91,19 @@ export default function Profile({
 const ProfileContainer = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 3rem;
+    height: 100vh;
 `;
 
+const AvatarContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`;
 const Avatar = styled.img`
+    margin: 5rem;
     width: 300px;
     height: 300px;
     border-radius: 50%;
-`;
-
-// fadeIn Animation
-const TextContainer = styled.div`
-    margin-top: 8rem;
-    opacity: 0;
-    transition: opacity 2s;
-
-    &.fade-in {
-        opacity: 1;
-    }
-`;
-
-const Text = styled.h1`
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
 `;
 
 // modal

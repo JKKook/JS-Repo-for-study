@@ -19,8 +19,8 @@ export default function Banner({
 
 const BannerImage = styled.img`
     cursor: pointer;
-    width: 300px;
-    height: 300px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     margin: 2rem 3rem;
 `;

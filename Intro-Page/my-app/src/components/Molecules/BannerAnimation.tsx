@@ -56,7 +56,7 @@ const slideDownAnimation = keyframes`
 
 const AnimatedContent = styled.div<AnimatedContentProps>`
     position: relative;
-    margin-top: 3rem;
+    margin: 3rem 0;
 
     ${({ isAnimation }) =>
         isAnimation &&
