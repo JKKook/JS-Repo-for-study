@@ -24,82 +24,73 @@ export default function Introduce() {
             const { scrollTop } = outerDivRef.current as HTMLDivElement;
             const pageHeight = window.innerHeight;
 
-            if (deltaY > 0) {
-                console.log('deltaY', deltaY);
-                // scroll down
-                if (scrollTop >= 0 && scrollTop < pageHeight) {
-                    console.log('scrollTop :', scrollTop);
+            // switch case 변수
+            const isScrollDown = deltaY > 0;
+            const isScrollUp = deltaY < 0;
+            const scrollPosition = scrollTop / pageHeight;
+
+            switch (true) {
+                // ** Scroll-Down
+                case isScrollDown && scrollPosition < 1:
                     console.log('ScrollDown : page 1');
-                    outerDivRef.current?.scrollTo({
+                    outerDivRefCurrent?.scrollTo({
                         top: pageHeight + DIVIDER_HEIGHT,
                         left: 0,
                         behavior: 'smooth',
                     });
                     setScrollPageIndex(2);
-                } else if (
-                    scrollTop >= pageHeight &&
-                    scrollTop < pageHeight * 2
-                ) {
-                    // page 2
+                    break;
+
+                case isScrollDown && scrollPosition < 2:
                     console.log('ScrollDown : page 2');
-                    outerDivRef.current?.scrollTo({
+                    outerDivRefCurrent?.scrollTo({
                         top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
                         left: 0,
                         behavior: 'smooth',
                     });
                     setScrollPageIndex(3);
-                } else if (
-                    scrollTop >= pageHeight &&
-                    scrollTop < pageHeight * 2
-                ) {
-                    // page 2
-                    console.log('ScrollDown : page 2');
-                    outerDivRef.current?.scrollTo({
-                        top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
-                        left: 0,
-                        behavior: 'smooth',
-                    });
-                    setScrollPageIndex(3);
-                } else {
-                    // page 3
-                    outerDivRef.current?.scrollTo({
+                    break;
+
+                case isScrollDown && scrollPosition < 3:
+                    console.log('ScrollDown : page 3');
+                    outerDivRefCurrent?.scrollTo({
                         top: pageHeight * 4,
                         left: 0,
                         behavior: 'smooth',
                     });
                     setScrollPageIndex(3);
-                }
-            } else {
-                // scroll up
-                if (scrollTop >= 0 && scrollTop < pageHeight) {
-                    console.log('ScrollUp : page 1');
+                    break;
 
+                // ** Scroll-Up
+                case isScrollUp && scrollPosition < 1:
+                    console.log('ScrollUp : page 1');
                     outerDivRefCurrent?.scrollTo({
                         top: 0,
                         left: 0,
                         behavior: 'smooth',
                     });
-                    setScrollPageIndex(1);
-                } else if (
-                    scrollTop >= pageHeight &&
-                    scrollTop < pageHeight * 2
-                ) {
+                    setScrollPageIndex(3);
+                    break;
+
+                case isScrollUp && scrollPosition < 2:
                     console.log('ScrollUp : page 2');
                     outerDivRefCurrent?.scrollTo({
                         top: 0,
                         left: 0,
                         behavior: 'smooth',
                     });
-                    setScrollPageIndex(1);
-                } else {
-                    // page 3
-                    outerDivRef.current?.scrollTo({
+                    setScrollPageIndex(2);
+                    break;
+
+                default:
+                    console.log('ScrollUp : page 3');
+                    outerDivRefCurrent?.scrollTo({
                         top: pageHeight + DIVIDER_HEIGHT,
                         left: 0,
                         behavior: 'smooth',
                     });
-                    setScrollPageIndex(2);
-                }
+                    setScrollPageIndex(3);
+                    break;
             }
         };
 

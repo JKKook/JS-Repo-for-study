@@ -47,7 +47,7 @@ export default function Profile() {
 
     return (
         <ProfileContainer>
-            <h2>소개글</h2>
+            <Title>IntroDuce</Title>
             <AvatarContainer>
                 <Avatar
                     src='https://cdn.pixabay.com/photo/2016/03/27/17/42/man-1283235_1280.jpg'
@@ -92,6 +92,12 @@ const ProfileContainer = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
+`;
+
+const Title = styled.span`
+    margin-left: 5rem;
+    margin-top: 5rem;
+    font-size: 36px;
 `;
 
 const AvatarContainer = styled.div`
